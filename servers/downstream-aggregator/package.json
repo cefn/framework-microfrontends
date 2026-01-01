@@ -1,0 +1,21 @@
+{
+  "name": "downstream-aggregator",
+  "version": "0.0.1",
+  "description": "A minimal express server that composes upstream HTML fragments into a page",
+  "type": "module",
+  "scripts": {
+    "serve": "tsx src/index.tsx"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.26.0",
+  "dependencies": {
+    "express": "^5.2.1",
+    "preact": "^10.28.1",
+    "preact-render-to-string": "^6.6.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}

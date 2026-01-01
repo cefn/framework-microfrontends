@@ -1,0 +1,17 @@
+---
+import { Page, loadPageProps } from "shared-components";
+
+const { pageName } = Astro.params;
+
+if (!pageName) {
+  throw new Error(`No pageName provided by route`);
+}
+
+const upstreamName = "astro";
+
+const pageProps = await loadPageProps({ upstreamName, pageName });
+---
+
+<h1>Astro templated content</h1>
+<p>This astro page '{pageName}' contains a React <i>Page</i> component</p>
+<Page client:load {...pageProps} />
