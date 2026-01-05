@@ -38,7 +38,7 @@ export function Page(props: PageProps) {
   const { isLoaded } = useIsLoaded();
   return (
     <div>
-      <h1>React templated content</h1>
+      <h1>Shared templated component</h1>
       <p>
         '{pageName}' served by {upstreamName}
       </p>

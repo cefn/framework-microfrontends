@@ -7,7 +7,7 @@
     "dev": "vite dev",
     "build": "vite build && tsc --noEmit",
     "preview": "vite preview",
-    "start": "node .output/server/index.mjs",
+    "start": "PORT=3004 node .output/server/index.mjs",
     "serve": "pnpm build && pnpm start"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "nitro": "3.0.1-alpha.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "shared-components": "workspace:^",
     "zod": "^3.24.2"
   },
   "devDependencies": {

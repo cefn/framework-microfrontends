@@ -4,12 +4,12 @@ import { renderToString } from "preact-render-to-string";
 import { UPSTREAM_ADDRESS, type UpstreamName } from "./config";
 
 /** Retrieves an upstream-rendered page, inlining its HTML within a minimal HTML page */
-export async function promiseEmbeddedHtml(options: {
+export async function promiseInlinedHtml(options: {
   upstreamName: UpstreamName;
   pageName: string;
 }) {
   const { upstreamName, pageName } = options;
-  const upstreamAddress = `${UPSTREAM_ADDRESS[upstreamName]}/${pageName}`;
+  const upstreamAddress = `${UPSTREAM_ADDRESS[upstreamName]}/${upstreamName}/${pageName}`;
   const response = await fetch(upstreamAddress);
   const { status } = response;
 
@@ -27,11 +27,11 @@ export async function promiseEmbeddedHtml(options: {
   }
 
   const upstreamHtml = await response.text();
-  return embedHtml({ pageName, upstreamName, upstreamHtml });
+  return inlineHtml({ pageName, upstreamName, upstreamHtml });
 }
 
 /** Creates a html page, containing the inlined HTML */
-function embedHtml(options: {
+function inlineHtml(options: {
   upstreamName: string;
   upstreamHtml: string;
   pageName: string | undefined;
@@ -45,7 +45,7 @@ function embedHtml(options: {
           <title>{`Embedding ${pageName} from ${upstreamName}`}</title>
         </head>
         <body>
-          <h1>Aggregator template content</h1>
+          <h1>Aggregator templated content</h1>
           <p>
             This page has an embedded '{upstreamName}' page{" "}
             {pageName ? `'${pageName}'` : ""} in it

@@ -5,16 +5,14 @@ import react from "@astrojs/react";
 
 import node from "@astrojs/node";
 
-const ASTRO_HOST = "localhost";
-const ASTRO_PORT = 3001;
-const ASTRO_ORIGIN = `http://${ASTRO_HOST}:${ASTRO_PORT}`;
+import { ASTRO_ORIGIN, ASTRO_PORT, CORS_ORIGIN } from "./src/config";
 
 // https://astro.build/config
 export default defineConfig({
   server: {
     port: ASTRO_PORT,
     headers: {
-      "Access-Control-Allow-Origin": "http://localhost:3000",
+      "Access-Control-Allow-Origin": CORS_ORIGIN,
     },
   },
   site: ASTRO_ORIGIN,
