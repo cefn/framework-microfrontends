@@ -1,5 +1,6 @@
 ---
 import { Page, loadPageProps } from "shared-components";
+import { ASTRO_UPSTREAM_NAME } from "../../config";
 
 const { pageName } = Astro.params;
 
@@ -7,9 +8,10 @@ if (!pageName) {
   throw new Error(`No pageName provided by route`);
 }
 
-const upstreamName = "astro";
-
-const pageProps = await loadPageProps({ upstreamName, pageName });
+const pageProps = await loadPageProps({
+  upstreamName: ASTRO_UPSTREAM_NAME,
+  pageName,
+});
 ---
 
 <h1>Astro templated content</h1>

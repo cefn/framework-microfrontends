@@ -1,6 +1,6 @@
 import express, { type ErrorRequestHandler } from "express";
 import { renderToString } from "preact-render-to-string";
-import { UPSTREAM_NAMES, DOWNSTREAM_PORT } from "./config";
+import { UPSTREAM_NAMES, DOWNSTREAM_PORT, UPSTREAM_ADDRESS } from "./config";
 import { promiseInlinedHtml, promiseServer } from "./server";
 import { isMember } from "./util";
 
@@ -17,13 +17,28 @@ app.get("/", function landing(_req, res, next) {
             <body>
               <h1>All upstreams</h1>
               <ul>
-                {UPSTREAM_NAMES.map((upstreamName) => (
-                  <li key={upstreamName}>
-                    <a href={`/${upstreamName}/${examplePageName}`}>
-                      {upstreamName}
-                    </a>
-                  </li>
-                ))}
+                {UPSTREAM_NAMES.map((upstreamName) => {
+                  const upstreamAddress = UPSTREAM_ADDRESS[upstreamName];
+                  return (
+                    <li key={upstreamName}>
+                      {upstreamName}:
+                      <ul>
+                        <li>
+                          <a
+                            href={`${upstreamAddress}/${upstreamName}/somepage`}
+                          >
+                            direct
+                          </a>
+                        </li>
+                        <li>
+                          <a href={`/${upstreamName}/${examplePageName}`}>
+                            injected
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  );
+                })}
               </ul>
             </body>
           </html>,
