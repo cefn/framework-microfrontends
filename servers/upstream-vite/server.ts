@@ -1,6 +1,8 @@
 import fs from "node:fs/promises";
 import express from "express";
 import cors from "cors";
+import { ViteDevServer } from "vite";
+import { type render as ServerRender } from "./src/entry-server.tsx";
 
 // Constants
 const isProduction = process.env.NODE_ENV === "production";
@@ -19,7 +21,7 @@ app.use(cors());
 
 // Add Vite or respective production middlewares
 /** @type {import('vite').ViteDevServer | undefined} */
-let vite;
+let vite: ViteDevServer;
 if (!isProduction) {
   const { createServer } = await import("vite");
   vite = await createServer({
@@ -40,10 +42,9 @@ app.use("*all", async (req, res) => {
   try {
     const url = req.originalUrl.replace(base, "");
 
-    /** @type {string} */
-    let template;
+    let template: string;
     /** @type {import('./src/entry-server.ts').render} */
-    let render;
+    let render: typeof ServerRender;
     if (!isProduction) {
       // Always read fresh template in development
       template = await fs.readFile("./index.html", "utf-8");
@@ -66,9 +67,14 @@ app.use("*all", async (req, res) => {
 
     res.status(200).set({ "Content-Type": "text/html" }).send(html);
   } catch (e) {
-    vite?.ssrFixStacktrace(e);
-    console.log(e.stack);
-    res.status(500).end(e.stack);
+    if (e instanceof Error) {
+      vite?.ssrFixStacktrace(e);
+      console.log(e.stack);
+      res.status(500).end(e.stack);
+    } else {
+      console.error(e);
+      res.status(500).end();
+    }
   }
 });
 
