@@ -3,7 +3,7 @@ import { renderToString } from "react-dom/server";
 
 import { Page, loadPageProps } from "shared-components";
 
-import { VITE_UPSTREAM_NAME, VITE_APP_UID } from "./config";
+import { VITE_UPSTREAM_NAME, MICROFRONTEND_UID } from "./config";
 
 export async function render(url: string) {
   const [_upstreamName, pageName] = url.split("/");
@@ -14,7 +14,7 @@ export async function render(url: string) {
     pageName,
     upstreamName: VITE_UPSTREAM_NAME,
   });
-  const js = `window['${VITE_APP_UID}']=${JSON.stringify({ pageProps })}`;
+  const js = `window['${MICROFRONTEND_UID}']=${JSON.stringify({ pageProps })}`;
   const html = renderToString(
     <StrictMode>
       <Page {...pageProps} />
