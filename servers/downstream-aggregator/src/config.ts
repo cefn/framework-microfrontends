@@ -8,6 +8,7 @@ export const UPSTREAM_ADDRESS = {
   reactrouter: "http://localhost:3003",
   tanstack: "http://localhost:3004",
   vike: "http://localhost:3005",
+  vite: "http://localhost:3006",
 } as const;
 
 export const UPSTREAM_NAMES = unsafeKeys(UPSTREAM_ADDRESS);
