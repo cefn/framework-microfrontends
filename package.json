@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Inlining server-rendered, client-hydrated pages from mainstream React SSR frameworks",
   "scripts": {
-    "demo": "pnpm --recursive --parallel --workspace-concurrency=Infinite --bail serve"
+    "serve-all": "pnpm --recursive --bail --parallel --workspace-concurrency=1000 serve"
   },
   "keywords": [],
   "author": "",
