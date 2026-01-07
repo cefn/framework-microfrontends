@@ -4,8 +4,8 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build && tsc --noEmit",
+    "dev": "vite dev --configLoader runner",
+    "build": "vite build  --configLoader runner && tsc --noEmit",
     "preview": "vite preview",
     "start": "PORT=3004 node .output/server/index.mjs",
     "serve": "pnpm build && pnpm start"

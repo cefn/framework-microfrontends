@@ -1,6 +1,6 @@
 import { loadPageProps, Page } from "shared-components";
 
-import { NEXT_UPSTREAM_NAME } from "../../../config";
+import { upstream } from "@/upstreamDef";
 
 export default async function Fragment({
   params,
@@ -13,7 +13,7 @@ export default async function Fragment({
   }
   const pageProps = await loadPageProps({
     pageName,
-    upstreamName: NEXT_UPSTREAM_NAME,
+    upstreamName: upstream.name,
   });
   return (
     <>

@@ -1,6 +1,6 @@
 ---
 import { Page, loadPageProps } from "shared-components";
-import { ASTRO_UPSTREAM_NAME } from "../../config";
+import { upstream } from "../../upstreamDef";
 
 const { pageName } = Astro.params;
 
@@ -9,7 +9,7 @@ if (!pageName) {
 }
 
 const pageProps = await loadPageProps({
-  upstreamName: ASTRO_UPSTREAM_NAME,
+  upstreamName: upstream.name,
   pageName,
 });
 ---

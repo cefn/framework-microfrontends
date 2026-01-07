@@ -1,10 +1,16 @@
 import express, { type ErrorRequestHandler } from "express";
 import { renderToString } from "preact-render-to-string";
-import { UPSTREAM_NAMES, DOWNSTREAM_PORT, UPSTREAM_ADDRESS } from "./config";
+import {
+  getUpstreamDefinition,
+  isMember,
+  UPSTREAM_NAMES,
+} from "shared-components";
 import { promiseInlinedHtml, promiseServer } from "./server";
-import { isMember } from "./util";
 
 const app = express();
+
+const { PORT } = process.env;
+const port = PORT ? Number(PORT) : 3000;
 
 // establish landing page with links to each upstream
 app.get("/", function landing(_req, res, next) {
@@ -18,14 +24,14 @@ app.get("/", function landing(_req, res, next) {
               <h1>All upstreams</h1>
               <ul>
                 {UPSTREAM_NAMES.map((upstreamName) => {
-                  const upstreamAddress = UPSTREAM_ADDRESS[upstreamName];
+                  const upstream = getUpstreamDefinition(upstreamName);
                   return (
                     <li key={upstreamName}>
                       {upstreamName}:
                       <ul>
                         <li>
                           <a
-                            href={`${upstreamAddress}/${upstreamName}/somepage`}
+                            href={`${upstream.origin}/${upstreamName}/somepage`}
                           >
                             direct
                           </a>
@@ -54,16 +60,16 @@ app.get(
   function inlineUpstreamPage(req, res, next) {
     const { upstreamName, pageName } = req.params;
 
-    if (!isMember(UPSTREAM_NAMES, upstreamName)) {
-      throw new Error(`${upstreamName} is not a member of ${UPSTREAM_NAMES}`);
-    }
-
-    if (!pageName) {
+    if (!upstreamName || !pageName) {
       return next(
         new Error(
-          `Must provide a pageName like 'http://hostName:hostPort/upstreamName/pageName'`,
+          `Must provide a pageName and upstreamName like 'http://hostName:hostPort/upstreamName/pageName'`,
         ),
       );
+    }
+
+    if (!isMember(UPSTREAM_NAMES, upstreamName)) {
+      throw new Error(`${upstreamName} is not a member of ${UPSTREAM_NAMES}`);
     }
 
     promiseInlinedHtml({ upstreamName, pageName })
@@ -77,8 +83,8 @@ app.use(((err, _req, res, _next) => {
   res.status(500).send(`Something broke! ${err.message}`);
 }) satisfies ErrorRequestHandler);
 
-const server = await promiseServer(app, DOWNSTREAM_PORT);
-console.log(`Server running on port ${DOWNSTREAM_PORT}`);
+const server = await promiseServer(app, port);
+console.log(`Server running on port ${port}`);
 
 await new Promise<void>((resolve) => {
   process.on("SIGINT", resolve);

@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-import { MICROFRONTEND_UID, VITE_ORIGIN } from "./src/config";
+import { MICROFRONTEND_UID } from "./src/microfrontendDef";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -16,7 +16,7 @@ export default defineConfig({
   ],
   experimental: {
     renderBuiltUrl(fileName) {
-      return `${VITE_ORIGIN}/${fileName}`;
+      return `http://localhost:3006/${fileName}`;
     },
   },
 });

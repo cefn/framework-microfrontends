@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Page, loadPageProps } from "shared-components";
-import { TANSTACK_UPSTREAM_NAME } from "~/config";
+import { upstream } from "~/upstreamDef";
 
-export const Route = createFileRoute(`/${TANSTACK_UPSTREAM_NAME}/$pageName`)({
+export const Route = createFileRoute(`/${upstream.name}/$pageName`)({
   loader: async ({ params }) => {
     const { pageName } = params;
     const pageProps = await loadPageProps({
-      upstreamName: TANSTACK_UPSTREAM_NAME,
+      upstreamName: upstream.name,
       pageName,
     });
     return pageProps;

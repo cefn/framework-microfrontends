@@ -1,7 +1,7 @@
 import { type RouteConfig, index, route } from "@react-router/dev/routes";
-import { REACTROUTER_UPSTREAM_NAME } from "./config";
+import { upstream } from "./upstreamDef";
 
 export default [
   index("./routes/home.tsx"),
-  route(`/${REACTROUTER_UPSTREAM_NAME}/:pageName`, "./routes/page.tsx"),
+  route(`/${upstream.name}/:pageName`, "./routes/page.tsx"),
 ] satisfies RouteConfig;

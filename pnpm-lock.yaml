@@ -50,6 +50,9 @@ importers:
       preact-render-to-string:
         specifier: ^6.6.5
         version: 6.6.5(preact@10.28.1)
+      shared-components:
+        specifier: workspace:^
+        version: link:../../modules/shared-components
     devDependencies:
       '@types/express':
         specifier: ^5.0.6

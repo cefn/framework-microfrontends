@@ -2,6 +2,7 @@
   "name": "upstream-nextjs",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "PORT=3002 next dev",
     "build": "next build",

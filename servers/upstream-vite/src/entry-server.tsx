@@ -2,8 +2,8 @@ import { StrictMode } from "react";
 import { renderToString } from "react-dom/server";
 
 import { Page, loadPageProps } from "shared-components";
-
-import { VITE_UPSTREAM_NAME, MICROFRONTEND_UID } from "./config";
+import { upstream } from "./upstreamDef";
+import { MICROFRONTEND_UID } from "./microfrontendDef";
 
 export async function render(url: string) {
   const [_upstreamName, pageName] = url.split("/");
@@ -12,7 +12,7 @@ export async function render(url: string) {
   }
   const pageProps = await loadPageProps({
     pageName,
-    upstreamName: VITE_UPSTREAM_NAME,
+    upstreamName: upstream.name,
   });
   const js = `window['${MICROFRONTEND_UID}']=${JSON.stringify({ pageProps })}`;
   const html = renderToString(
