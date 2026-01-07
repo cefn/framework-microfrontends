@@ -3,12 +3,12 @@ import { defineConfig } from "vite";
 import { nitro } from "nitro/vite";
 import tsConfigPaths from "vite-tsconfig-paths";
 import viteReact from "@vitejs/plugin-react";
-import { CORS_ORIGIN, TANSTACK_ORIGIN, TANSTACK_PORT } from "./src/config";
+import { upstream } from "./src/upstreamDef";
 
 export default defineConfig({
-  base: TANSTACK_ORIGIN,
+  base: upstream.origin,
   server: {
-    port: TANSTACK_PORT,
+    port: upstream.port,
   },
   plugins: [
     tsConfigPaths({
@@ -24,7 +24,7 @@ export default defineConfig({
         cors: true,
         headers: {
           "access-control-allow-methods": "GET",
-          "access-control-allow-origin": CORS_ORIGIN,
+          "access-control-allow-origin": upstream.cors,
         },
       },
     },

@@ -5,19 +5,19 @@ import react from "@astrojs/react";
 
 import node from "@astrojs/node";
 
-import { ASTRO_ORIGIN, ASTRO_PORT, CORS_ORIGIN } from "./src/config";
+import { upstream } from "./src/upstreamDef";
 
 // https://astro.build/config
 export default defineConfig({
   server: {
-    port: ASTRO_PORT,
+    port: upstream.port,
     headers: {
-      "Access-Control-Allow-Origin": CORS_ORIGIN,
+      "Access-Control-Allow-Origin": upstream.cors,
     },
   },
-  site: ASTRO_ORIGIN,
+  site: upstream.origin,
   build: {
-    assetsPrefix: ASTRO_ORIGIN,
+    assetsPrefix: upstream.origin,
   },
 
   integrations: [react()],

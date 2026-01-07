@@ -19,8 +19,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+      "shared-components": ["../../modules/shared-components/src/index.ts"]
+    },
+    "allowImportingTsExtensions": true
   },
   "include": [
     "next-env.d.ts",

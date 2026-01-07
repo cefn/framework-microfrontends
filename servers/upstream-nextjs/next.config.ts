@@ -1,9 +1,10 @@
-import { NEXT_ORIGIN } from "@/config";
 import type { NextConfig } from "next";
 
+// import { upstream } from "./src/upstreamDef";
+
 const nextConfig: NextConfig = {
-  /* config options here */
-  assetPrefix: NEXT_ORIGIN,
+  assetPrefix: "http://localhost:3002",
+  // assetPrefix: upstream.origin,
 };
 
 export default nextConfig;

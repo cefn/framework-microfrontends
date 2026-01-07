@@ -1,4 +1,4 @@
-import { REACTROUTER_UPSTREAM_NAME } from "~/config";
+import { upstream } from "~/upstreamDef";
 import type { Route } from "./+types/page";
 
 import { Page, loadPageProps } from "shared-components";
@@ -6,7 +6,7 @@ import { Page, loadPageProps } from "shared-components";
 export async function loader({ params }: Route.LoaderArgs) {
   const { pageName } = params;
   return await loadPageProps({
-    upstreamName: REACTROUTER_UPSTREAM_NAME,
+    upstreamName: upstream.name,
     pageName,
   });
 }

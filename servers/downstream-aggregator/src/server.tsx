@@ -1,7 +1,7 @@
 import { type Application } from "express";
 import http from "node:http";
 import { renderToString } from "preact-render-to-string";
-import { UPSTREAM_ADDRESS, type UpstreamName } from "./config";
+import { getUpstreamDefinition, type UpstreamName } from "shared-components";
 
 /** Retrieves an upstream-rendered page, inlining its HTML within a minimal HTML page */
 export async function promiseInlinedHtml(options: {
@@ -9,7 +9,8 @@ export async function promiseInlinedHtml(options: {
   pageName: string;
 }) {
   const { upstreamName, pageName } = options;
-  const upstreamAddress = `${UPSTREAM_ADDRESS[upstreamName]}/${upstreamName}/${pageName}`;
+  const upstream = getUpstreamDefinition(upstreamName);
+  const upstreamAddress = `${upstream.origin}/${upstreamName}/${pageName}`;
   const response = await fetch(upstreamAddress);
   const { status } = response;
 

@@ -2,20 +2,20 @@
   "name": "shared-components",
   "version": "0.0.1",
   "description": "Typescript module reused by multiple upstream servers",
+  "type": "module",
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "import": {
-        "types": "./src/index.tsx",
-        "default": "./src/index.tsx"
+        "types": "./src/index.ts",
+        "default": "./src/index.ts"
       }
     }
   },
   "files": [
     "package.json",
-    "src/index.tsx"
+    "src/*"
   ],
-  "type": "module",
   "license": "MIT",
   "packageManager": "pnpm@10.26.0",
   "peerDependencies": {
