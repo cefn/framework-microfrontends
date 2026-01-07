@@ -60,16 +60,16 @@ app.get(
   function inlineUpstreamPage(req, res, next) {
     const { upstreamName, pageName } = req.params;
 
-    if (!isMember(UPSTREAM_NAMES, upstreamName)) {
-      throw new Error(`${upstreamName} is not a member of ${UPSTREAM_NAMES}`);
-    }
-
-    if (!pageName) {
+    if (!upstreamName || !pageName) {
       return next(
         new Error(
-          `Must provide a pageName like 'http://hostName:hostPort/upstreamName/pageName'`,
+          `Must provide a pageName and upstreamName like 'http://hostName:hostPort/upstreamName/pageName'`,
         ),
       );
+    }
+
+    if (!isMember(UPSTREAM_NAMES, upstreamName)) {
+      throw new Error(`${upstreamName} is not a member of ${UPSTREAM_NAMES}`);
     }
 
     promiseInlinedHtml({ upstreamName, pageName })
