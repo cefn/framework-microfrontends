@@ -14,7 +14,7 @@ is violated when the rendered HTML is actually embedded inside another page.
 
 ## Demo
 
-Run `pnpm demo` to bring up the `downstream-aggregator` on port 3000 as well as
+Run `pnpm serve-all` to bring up the `downstream-aggregator` on port 3000 as well as
 the following pre-built upstream servers, each on a different port...
 
 - `upstream-astro`
